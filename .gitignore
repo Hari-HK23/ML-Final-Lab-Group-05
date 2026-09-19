@@ -1,0 +1,3 @@
+data/raw/*
+!data/raw/sample.csv
+!data/raw/download_data.py
