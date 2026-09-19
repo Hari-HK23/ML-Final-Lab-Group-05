@@ -1,3 +1,4 @@
-data/raw/*
+﻿data/raw/*
 !data/raw/sample.csv
 !data/raw/download_data.py
+!data/raw/sample_processed.csv

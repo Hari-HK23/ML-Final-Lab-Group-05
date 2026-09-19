@@ -1,5 +1,7 @@
 """
-Downloads the full raw dataset (credit_card_fraud.csv) from Google Drive.
+Downloads the full raw and processed datasets from Google Drive.
+Both files are too large for GitHub (>50MB), so they're hosted on
+Drive instead and fetched here.
 
 Setup:
     pip install gdown
@@ -7,31 +9,40 @@ Setup:
 Usage:
     python data/raw/download_data.py
 
-This will save the full file to data/raw/credit_card_fraud.csv.
-That path is git-ignored, so this script is how anyone cloning the repo
-gets the complete data.
+This saves both files into data/raw/. That path is git-ignored, so
+this script is how anyone cloning the repo gets the complete data.
 """
 
 import os
 import gdown
 
-# TODO: replace with your actual Google Drive file ID
-# Get it from your shareable link:
+# Get each ID from its shareable link:
 #   https://drive.google.com/file/d/FILE_ID_HERE/view?usp=sharing
 #                                    ^^^^^^^^^^^^ this part
-FILE_ID = "https://drive.google.com/file/d/1xWQa8i53ktNHb699pdh4i3gzxHfBgeDn/view?usp=drive_link"
+FILES = {
+    "processed_dataset.csv": "1Kaphgn-56eF-nP5KbIeRPR9B7DL_3Cez",
+    "credit_card_fraud.csv": "PASTE_RAW_DATASET_FILE_ID_HERE",
+}
 
-OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "credit_card_fraud.csv")
+RAW_DIR = os.path.dirname(__file__)
 
 
 def download():
-    if os.path.exists(OUTPUT_PATH):
-        print(f"File already exists at {OUTPUT_PATH}, skipping download.")
-        return
+    for filename, file_id in FILES.items():
+        output_path = os.path.join(RAW_DIR, filename)
 
-    url = f"https://drive.google.com/uc?id={FILE_ID}"
-    print(f"Downloading full dataset to {OUTPUT_PATH} ...")
-    gdown.download(url, OUTPUT_PATH, quiet=False)
+        if "PASTE_" in file_id:
+            print(f"Skipping {filename}: no file ID set yet in FILES dict.")
+            continue
+
+        if os.path.exists(output_path):
+            print(f"{filename} already exists, skipping download.")
+            continue
+
+        url = f"https://drive.google.com/uc?id={file_id}"
+        print(f"Downloading {filename} ...")
+        gdown.download(url, output_path, quiet=False)
+
     print("Done.")
 
 
