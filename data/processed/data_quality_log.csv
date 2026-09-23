@@ -1,0 +1,12 @@
+Check,Result
+Expected schema,Passed
+Missing values,0
+Duplicate rows before cleaning,0
+Duplicate transaction IDs,0
+Negative transaction amounts,0
+Invalid customer latitude,0
+Invalid customer longitude,0
+Invalid merchant latitude,0
+Invalid merchant longitude,0
+Negative city population,0
+Invalid target values,0
